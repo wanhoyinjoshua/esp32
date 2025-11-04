@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Balloon Breathing Monitor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   
+    <link rel="stylesheet" href="main.css">
+   
+
+</head>
+<body>
+ 
+  <button id="connectBtn">Connect to Sensor</button>
+  <button id="toggleStatsBtn">Hide Stats</button>
+  <button id="resetBtn">Reset</button>
+  <div id="statusBar">Status: Not connected</div>
+
+  <div id="statsPanel">
+    <div class="stat pressure" id="pressure">Pressure: -- mmHg</div>
+    <div class="stat" id="timeInRange">Time in range: 0.00 s</div>
+    <div class="stat" id="leakTime">Leak time: 0.00 s</div>
+    <div class="stat" id="goodBreaths">Good breaths: 0</div>
+    <div class="stat" id="leakedBreaths">Leaked breaths: 0</div>
+    <div class="stat" id="crossedZero">Crossed zero: false</div>
+    <div class="stat" id="leaked">Leaked: false</div>
+    <button id="exportBtn">Export CSV</button>
+  </div>
+
+  <canvas id="canvas"></canvas>
+  <canvas id="graphCanvas" style="position:absolute; top:0; left:0; pointer-events:none;"></canvas>
+
+  https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg</audio>
+
+  <script>
+    // Include all JavaScript here (see next section)
+  </script>
+</body>
+<script src="index.js"></script> 
+</html>

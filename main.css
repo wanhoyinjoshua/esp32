@@ -1,0 +1,66 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+  }
+  
+  #connectBtn, #toggleStatsBtn, #resetBtn {
+    position: absolute;
+    top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  #connectBtn { left: 10px; background: #0077cc; color: white; }
+  #toggleStatsBtn { left: 150px; background: #555; color: white; }
+  #resetBtn { left: 290px; background: #cc0000; color: white; }
+  
+  #statusBar {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    font-size: 16px;
+    background: rgba(255,255,255,0.85);
+    padding: 8px 12px;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  
+  #statsPanel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: rgba(255,255,255,0.85);
+    padding: 10px;
+    font-size: 16px;
+    z-index: 10;
+    border-top: 1px solid #ccc;
+  }
+  
+  .stat {
+    margin: 5px 10px;
+  }
+  
+  #statsPanel.collapsed .stat {
+    display: none;
+  }
+  
+  #statsPanel.collapsed .pressure {
+    display: block;
+  }
+  
+  canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+  }
