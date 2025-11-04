@@ -25,7 +25,8 @@ let lower_threshold_expand_pressure = 15;
 let upper_threshold_expand_pressure = 20;
 
 function leakcompensation(pressure, firstcomp = 2, secondcomp = 4) {
-  if (pressure <= 10) return pressure + firstcomp;
+    if(pressure==0)return 0;
+    if (pressure <= 10) return pressure + firstcomp;
   return pressure + secondcomp;
 }
 
