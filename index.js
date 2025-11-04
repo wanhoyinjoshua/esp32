@@ -18,21 +18,15 @@ let justStarted = true;
 let balloonBurst = false;
 let lastTime = performance.now();
 let pressureHistory = [];
+let breathTarget = 10;
 
-//user setings
-let lower_threshold_expand_pressure=15
-let upper_threshold_expand_pressure=20
+// User settings
+let lower_threshold_expand_pressure = 15;
+let upper_threshold_expand_pressure = 20;
 
-//functions 
-function leakcompensation(pressure,firstcomp=2, secondcomp=4){
-
-    if(pressure<=10){
-        return pressure+firstcomp;
-    }
-    if(pressure>10){
-        return pressure+secondcomp;
-    }
-
+function leakcompensation(pressure, firstcomp = 2, secondcomp = 4) {
+  if (pressure <= 10) return pressure + firstcomp;
+  return pressure + secondcomp;
 }
 
 function resizeCanvas() {
@@ -122,7 +116,7 @@ function loop() {
     leakTime = 0;
   }
 
-  if (timeInRange >= 100 && !balloonBurst) {
+  if (goodBreaths === breathTarget && !balloonBurst) {
     balloonBurst = true;
     burstSound.play();
   }
@@ -173,11 +167,45 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
   }
 });
 
+// Existing variables and setup...
+
+// Event handlers for settings inputs
+document.getElementById('targetBreathsInput').addEventListener('input', (e) => {
+    const value = parseInt(e.target.value, 10);
+    // TODO: handle target breath change
+  });
+  
+  document.getElementById('compensationSelect').addEventListener('change', (e) => {
+    const value = parseInt(e.target.value, 10);
+    // TODO: handle compensation change
+  });
+  
+  document.getElementById('balloonColorPicker').addEventListener('input', (e) => {
+    const color = e.target.value;
+    // TODO: handle balloon color change
+  });
+  
+  document.getElementById('balloonImageUpload').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    // TODO: handle balloon image upload
+  });
+  
+
+  
+  // Other existing JS logic...
+
 document.getElementById('toggleStatsBtn').addEventListener('click', () => {
   const panel = document.getElementById('statsPanel');
   panel.classList.toggle('collapsed');
   document.getElementById('toggleStatsBtn').textContent =
     panel.classList.contains('collapsed') ? 'Show Stats' : 'Hide Stats';
+});
+
+document.getElementById('toggleSettingsBtn').addEventListener('click', () => {
+  const panel = document.getElementById('settingsPanel');
+  panel.classList.toggle('setting_shown');
+  document.getElementById('toggleSettingsBtn').textContent =
+    panel.classList.contains('setting_shown') ? 'Hide Settings' : 'Show Settings';
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
@@ -201,7 +229,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   const csv = [
     ['Time (s)', 'Pressure'],
     ...pressureHistory.map((p, i) => [i, p])
-  ].map(row => row.join(',')).join('\\n');
+  ].map(row => row.join(',')).join('\n');
 
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);

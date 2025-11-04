@@ -6,7 +6,7 @@ html, body {
     background: #f0f0f0;
   }
   
-  #connectBtn, #toggleStatsBtn, #resetBtn {
+  #connectBtn, #toggleSettingsBtn, #toggleStatsBtn, #resetBtn {
     position: absolute;
     top: 10px;
     padding: 10px 20px;
@@ -18,8 +18,9 @@ html, body {
   }
   
   #connectBtn { left: 10px; background: #0077cc; color: white; }
-  #toggleStatsBtn { left: 150px; background: #555; color: white; }
-  #resetBtn { left: 290px; background: #cc0000; color: white; }
+  #toggleSettingsBtn { left: 150px; background: #009688; color: white; }
+  #toggleStatsBtn { left: 290px; background: #555; color: white; }
+  #resetBtn { left: 430px; background: #cc0000; color: white; }
   
   #statusBar {
     position: absolute;
@@ -56,6 +57,23 @@ html, body {
   }
   
   #statsPanel.collapsed .pressure {
+    display: block;
+  }
+  
+  #settingsPanel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25vw;
+    height: 100vh;
+    background-color: lightgray;
+    padding: 20px;
+    display: none;
+    z-index: 9999; /* Ensure it's on top */
+    overflow-y: auto;
+  }
+  
+  #settingsPanel.setting_shown {
     display: block;
   }
   

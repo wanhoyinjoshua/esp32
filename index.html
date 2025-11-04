@@ -4,17 +4,12 @@
   <meta charset="UTF-8">
   <title>Balloon Breathing Monitor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-   
-    <link rel="stylesheet" href="main.css">
-   
-
-</head>
-<body>
- 
+  <link rel="stylesheet" href="main.css">
   <button id="connectBtn">Connect to Sensor</button>
+  <button id="toggleSettingsBtn">Show Settings</button>
   <button id="toggleStatsBtn">Hide Stats</button>
   <button id="resetBtn">Reset</button>
+
   <div id="statusBar">Status: Not connected</div>
 
   <div id="statsPanel">
@@ -28,14 +23,31 @@
     <button id="exportBtn">Export CSV</button>
   </div>
 
+  <div id="settingsPanel">
+    <label for="targetBreathsInput">Target Breaths (0–15):</label>
+    <input type="number" id="targetBreathsInput" min="0" max="15"><br><br>
+
+    <label for="compensationSelect">Compensation:</label>
+    <select id="compensationSelect">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select><br><br>
+
+    <label for="balloonColorPicker">Balloon Color:</label>
+    <input type="color" id="balloonColorPicker"><br><br>
+
+    <label for="balloonImageUpload">Balloon Image:</label>
+    <input type="file" id="balloonImageUpload" accept="image/*"><br><br>
+  </div>
+
   <canvas id="canvas"></canvas>
   <canvas id="graphCanvas" style="position:absolute; top:0; left:0; pointer-events:none;"></canvas>
 
-  https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg</audio>
+  <audio id="burstSound://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"></audio>
 
-  <script>
-    // Include all JavaScript here (see next section)
-  </script>
+  <script src="index.js"></script>
 </body>
-<script src="index.js"></script> 
 </html>
