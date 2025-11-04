@@ -19,6 +19,22 @@ let balloonBurst = false;
 let lastTime = performance.now();
 let pressureHistory = [];
 
+//user setings
+let lower_threshold_expand_pressure=15
+let upper_threshold_expand_pressure=20
+
+//functions 
+function leakcompensation(pressure,firstcomp=2, secondcomp=4){
+
+    if(pressure<=10){
+        return pressure+firstcomp;
+    }
+    if(pressure>10){
+        return pressure+secondcomp;
+    }
+
+}
+
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -79,7 +95,7 @@ function loop() {
     modified = leaked ? true : false;
   }
 
-  if (!balloonBurst && pressure >= 10 && pressure <= 15) {
+  if (!balloonBurst && pressure >= lower_threshold_expand_pressure && pressure <= upper_threshold_expand_pressure) {
     justStarted = false;
     timeInRange += deltaTime;
     leaked = false;
@@ -137,7 +153,7 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
     await characteristic.startNotifications();
     characteristic.addEventListener('characteristicvaluechanged', (event) => {
       const value = new TextDecoder().decode(event.target.value);
-      pressure = parseFloat(value);
+      pressure = leakcompensation(parseFloat(value));
     });
 
     document.getElementById('connectBtn').textContent = 'Connected';
