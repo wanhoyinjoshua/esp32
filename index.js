@@ -75,7 +75,7 @@ function drawBalloon() {
       document.getElementById('celebrationImage').style.display = 'none';
     }
 
-    return;
+   // return;
   
 
   const centerX = canvas.width / 2;
