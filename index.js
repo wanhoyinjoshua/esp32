@@ -178,7 +178,7 @@ function loop() {
 
   if (goodBreaths === breathTarget && !balloonBurst) {
     balloonBurst = true;
-    burstSound.play();
+    
   }
 
   drawBalloon();
