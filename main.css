@@ -25,6 +25,19 @@ html, body {
   border-bottom: 1px solid #bbb;
 }
 
+
+#confettiContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* This is critical */
+  overflow: hidden;
+  z-index: 9999;
+}
+
+
 @keyframes bounceIn {
   0% {
     transform: translateX(-50%) scale(0.3);
