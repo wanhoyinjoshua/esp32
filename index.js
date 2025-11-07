@@ -70,6 +70,7 @@ function drawBalloon() {
     img.classList.remove('bounce-in'); // reset animation
     void img.offsetWidth; // force reflow
     img.classList.add('bounce-in');
+    return
 
     } else {
       document.getElementById('celebrationImage').style.display = 'none';
