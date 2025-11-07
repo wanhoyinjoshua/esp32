@@ -240,6 +240,15 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
   }
 });
 
+
+// Disconnect on page unload
+window.addEventListener('beforeunload', () => {
+  if (connectedDevice && connectedDevice.gatt.connected) {
+    connectedDevice.gatt.disconnect();
+  }
+});
+
+
 // Existing variables and setup...
 
 // Event handlers for settings inputs
@@ -312,6 +321,23 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   pressureHistory = [];
   burstSound.pause();
   burstSound.currentTime = 0;
+  
+  document.getElementById('breathProgressBar').style.width = '0%';
+  document.getElementById('breathProgressText').textContent = `0 / ${breathTarget}`;
+  document.getElementById('celebrationImage').style.display = 'none';
+  document.getElementById('confettiContainer').innerHTML = '';
+
+  burstSound.pause();
+  burstSound.currentTime = 0;
+
+  // Disconnect from Bluetooth device if connected
+  if (connectedDevice && connectedDevice.gatt.connected) {
+    connectedDevice.gatt.disconnect();
+    statusBar.textContent = 'Status: Disconnected';
+    document.getElementById('connectBtn').textContent = 'Reconnect';
+    document.getElementById('connectBtn').disabled = false;
+  }
+
 });
 
 document.getElementById('exportBtn').addEventListener('click', () => {
