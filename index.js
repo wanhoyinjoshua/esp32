@@ -20,6 +20,11 @@ let balloonBurst = false;
 let lastTime = performance.now();
 let pressureHistory = [];
 let breathTarget = 6;
+//progress bar logic 
+
+const progressPercent = Math.min((goodBreaths / breathTarget) * 100, 100);
+document.getElementById('breathProgressBar').style.width = `${progressPercent}%`;
+document.getElementById('breathProgressText').textContent = `${goodBreaths} / ${breathTarget}`;
 
 // User settings
 let lower_threshold_expand_pressure = 15;
