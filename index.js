@@ -76,7 +76,7 @@ function drawBalloon() {
     }
 
     return;
-  }
+  
 
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
@@ -116,7 +116,7 @@ function drawBalloon() {
   ctx.lineTo(centerX, centerY + balloonSize + 50);
   ctx.stroke();
 
-}}
+}
 
 function drawGraph() {
   graphCtx.clearRect(0, 0, graphCanvas.width, graphCanvas.height);
