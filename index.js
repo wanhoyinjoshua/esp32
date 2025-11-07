@@ -58,10 +58,18 @@ function drawBalloon() {
  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (balloonBurst) {
+    
     ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('CONGRATULATIONS!', canvas.width / 2, canvas.height * 0.2);
+    
+    const img = document.getElementById('celebrationImage');
+    img.style.display = 'block';
+    } else {
+      document.getElementById('celebrationImage').style.display = 'none';
+    }
+
     return;
   }
 
@@ -252,10 +260,19 @@ document.getElementById('targetBreathsInput').addEventListener('input', (e) => {
     // TODO: handle balloon color change
   });
   
-  document.getElementById('balloonImageUpload').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    // TODO: handle balloon image upload
-  });
+
+    document.getElementById('balloonImageUpload').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const img = document.getElementById('celebrationImage');
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
   
 
   
