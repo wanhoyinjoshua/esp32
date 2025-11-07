@@ -25,6 +25,29 @@ html, body {
   border-bottom: 1px solid #bbb;
 }
 
+@keyframes bounceIn {
+  0% {
+    transform: translateX(-50%) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateX(-50%) scale(0.9);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+#celebrationImage.bounce-in {
+  animation: bounceIn 1s ease;
+}
+
+
+
 #breathProgressBar {
   position: absolute;
   top: 0;
