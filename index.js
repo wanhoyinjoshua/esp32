@@ -157,7 +157,7 @@ function loop() {
     balloonSize = Math.min(balloonSize, Math.min(canvas.width, canvas.height) * 0.75);
   }
 
-  if (!balloonBurst && pressure >= -1 && pressure <= 1 && !justStarted) {
+  if (!balloonBurst && pressure == 0 && !justStarted) {
     leakTime += deltaTime;
    
     if (leakTime >= 0.5) {
