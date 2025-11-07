@@ -19,7 +19,7 @@ let justStarted = true;
 let balloonBurst = false;
 let lastTime = performance.now();
 let pressureHistory = [];
-let breathTarget = 10;
+let breathTarget = 6;
 
 // User settings
 let lower_threshold_expand_pressure = 15;
@@ -220,7 +220,12 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
 
 // Event handlers for settings inputs
 document.getElementById('targetBreathsInput').addEventListener('input', (e) => {
+    
     const value = parseInt(e.target.value, 10);
+      if (!isNaN(value) && value >= 0 && value <= 15) {
+        breathTarget = value;
+      }
+
     // TODO: handle target breath change
   });
   
