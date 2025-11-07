@@ -67,9 +67,9 @@ function drawBalloon() {
     const img = document.getElementById('celebrationImage');
     img.style.display = 'block';
       
-    img.classList.remove('bounce-in'); // reset animation
-    void img.offsetWidth; // force reflow
-    img.classList.add('bounce-in');
+    //img.classList.remove('bounce-in'); // reset animation
+    //void img.offsetWidth; // force reflow
+    //img.classList.add('bounce-in');
     return
 
     } else {
