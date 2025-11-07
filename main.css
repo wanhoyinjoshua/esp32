@@ -5,6 +5,42 @@ html, body {
     font-family: Arial, sans-serif;
     background: #f0f0f0;
   }
+
+
+#breathProgressContainer {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  width: 100vw;
+  height: 30px;
+  background: #ddd;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+}
+
+#breathProgressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #81c784);
+  width: 0%;
+  z-index: 9;
+  transition: width 0.3s ease;
+}
+
+#breathProgressText {
+  position: relative;
+  z-index: 10;
+}
+
   
   #connectBtn, #toggleSettingsBtn, #toggleStatsBtn, #resetBtn {
     position: absolute;
