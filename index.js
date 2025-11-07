@@ -152,15 +152,18 @@ function loop() {
 
   if (!balloonBurst && pressure >= -2 && pressure <= 2 && !justStarted) {
     leakTime += deltaTime;
-    if (leakTime >= 0.5) {
+   
+    if (leakTime >= 1) {
       leaked = true;
       if (!modified) {
         leakedBreaths++;
+        goodBreaths = 0; // Reset good breaths on leak
         modified = true;
       }
       balloonSize -= 50;
       balloonSize = Math.max(balloonSize, 50);
     }
+
   } else {
     leakTime = 0;
   }
