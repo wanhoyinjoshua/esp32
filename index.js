@@ -40,18 +40,47 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 function drawBalloon() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+ 
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   if (balloonBurst) {
     ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('CONGRATULATIONS!', canvas.width / 2, canvas.height * 0.2);
-  } else {
-    ctx.fillStyle = 'red';
-    ctx.beginPath();
-    ctx.ellipse(canvas.width / 2, canvas.height / 2, balloonSize, balloonSize, 0, 0, Math.PI * 2);
-    ctx.fill();
+    return;
   }
+
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
+  // Balloon gradient
+  const gradient = ctx.createRadialGradient(centerX - balloonSize * 0.3, centerY - balloonSize * 0.3, balloonSize * 0.1, centerX, centerY, balloonSize);
+  gradient.addColorStop(0, '#ff4d4d');
+  gradient.addColorStop(1, '#cc0000');
+
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.ellipse(centerX, centerY, balloonSize * 0.8, balloonSize, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Balloon knot
+  ctx.fillStyle = '#cc0000';
+  ctx.beginPath();
+  ctx.moveTo(centerX - 5, centerY + balloonSize);
+  ctx.lineTo(centerX + 5, centerY + balloonSize);
+  ctx.lineTo(centerX, centerY + balloonSize + 10);
+  ctx.closePath();
+  ctx.fill();
+
+  // Balloon string
+  ctx.strokeStyle = '#555';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(centerX, centerY + balloonSize + 10);
+  ctx.lineTo(centerX, centerY + balloonSize + 50);
+  ctx.stroke();
+
 }
 
 function drawGraph() {
