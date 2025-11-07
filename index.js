@@ -5,6 +5,7 @@ const graphCtx = graphCanvas.getContext('2d');
 const statusBar = document.getElementById('statusBar');
 const burstSound = document.getElementById('burstSound');
 
+let balloonColor = '#cc0000'; // default red
 let pressure = 0;
 let balloonSize = 50;
 let timeInRange = 0;
@@ -39,6 +40,16 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
+
+function lightenColor(hex, percent) {
+  const num = parseInt(hex.replace('#', ''), 16);
+  const r = Math.min(255, Math.floor((num >> 16) + 255 * percent));
+  const g = Math.min(255, Math.floor(((num >> 8) & 0x00FF) + 255 * percent));
+  const b = Math.min(255, Math.floor((num & 0x0000FF) + 255 * percent));
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+
 function drawBalloon() {
  
  ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -55,9 +66,17 @@ function drawBalloon() {
   const centerY = canvas.height / 2;
 
   // Balloon gradient
-  const gradient = ctx.createRadialGradient(centerX - balloonSize * 0.3, centerY - balloonSize * 0.3, balloonSize * 0.1, centerX, centerY, balloonSize);
-  gradient.addColorStop(0, '#ff4d4d');
-  gradient.addColorStop(1, '#cc0000');
+
+  const gradient = ctx.createRadialGradient(
+      centerX - balloonSize * 0.3,
+      centerY - balloonSize * 0.3,
+      balloonSize * 0.1,
+      centerX,
+      centerY,
+      balloonSize
+    );
+  gradient.addColorStop(0, lightenColor(balloonColor, 0.4));
+
 
   ctx.fillStyle = gradient;
   ctx.beginPath();
@@ -211,7 +230,7 @@ document.getElementById('targetBreathsInput').addEventListener('input', (e) => {
   });
   
   document.getElementById('balloonColorPicker').addEventListener('input', (e) => {
-    const color = e.target.value;
+   balloonColor = e.target.value;
     // TODO: handle balloon color change
   });
   
