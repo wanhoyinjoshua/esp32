@@ -25,6 +25,16 @@ html, body {
   border-bottom: 1px solid #bbb;
 }
 
+.celebration-image {
+  display: none;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 300px;
+  z-index: 999;
+}
+
 
 #confettiContainer {
   position: absolute;
