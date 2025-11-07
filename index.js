@@ -162,9 +162,10 @@ function loop() {
    
     if (leakTime >= 0.5) {
       leaked = true;
+      goodBreaths = 0; // Reset good breaths on leak
       if (!modified) {
         leakedBreaths++;
-        goodBreaths = 0; // Reset good breaths on leak
+        
         modified = true;
       }
       balloonSize -= 50;
