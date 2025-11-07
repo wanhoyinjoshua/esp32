@@ -22,9 +22,7 @@ let pressureHistory = [];
 let breathTarget = 6;
 //progress bar logic 
 
-const progressPercent = Math.min((goodBreaths / breathTarget) * 100, 100);
-document.getElementById('breathProgressBar').style.width = `${progressPercent}%`;
-document.getElementById('breathProgressText').textContent = `${goodBreaths} / ${breathTarget}`;
+
 
 // User settings
 let lower_threshold_expand_pressure = 15;
@@ -135,6 +133,10 @@ function loop() {
   const deltaTime = (now - lastTime) / 1000;
   lastTime = now;
 
+  const progressPercent = Math.min((goodBreaths / breathTarget) * 100, 100);
+  document.getElementById('breathProgressBar').style.width = `${progressPercent}%`;
+  document.getElementById('breathProgressText').textContent = `${goodBreaths} / ${breathTarget}`;
+
   pressureHistory.push(pressure);
   if (pressureHistory.length > graphCanvas.width) pressureHistory.shift();
 
@@ -155,10 +157,10 @@ function loop() {
     balloonSize = Math.min(balloonSize, Math.min(canvas.width, canvas.height) * 0.75);
   }
 
-  if (!balloonBurst && pressure >= -2 && pressure <= 2 && !justStarted) {
+  if (!balloonBurst && pressure >= -1 && pressure <= 1 && !justStarted) {
     leakTime += deltaTime;
    
-    if (leakTime >= 1) {
+    if (leakTime >= 0.5) {
       leaked = true;
       if (!modified) {
         leakedBreaths++;
@@ -232,6 +234,8 @@ document.getElementById('targetBreathsInput').addEventListener('input', (e) => {
     const value = parseInt(e.target.value, 10);
       if (!isNaN(value) && value >= 0 && value <= 15) {
         breathTarget = value;
+        document.getElementById('breathProgressText').textContent = `0 / ${breathTarget}`;
+        
       }
 
     // TODO: handle target breath change
