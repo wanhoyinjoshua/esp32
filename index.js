@@ -31,19 +31,22 @@ let upper_threshold_expand_pressure = 20;
 
 
 
+
 let burstParticles = [];
 let burstStartTime = null;
 
-function createBurst(centerX, centerY, balloonColor) {
+function createBurst(centerX, centerY, balloonColor, balloonSize) {
   burstParticles = [];
   const numParticles = 30;
 
   for (let i = 0; i < numParticles; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = balloonSize * 0.8; // start near balloon edge
     burstParticles.push({
-      x: centerX,
-      y: centerY,
+      x: centerX + Math.cos(angle) * radius,
+      y: centerY + Math.sin(angle) * radius,
       size: 8 + Math.random() * 12,
-      angle: Math.random() * Math.PI * 2,
+      angle: angle,
       speed: 4 + Math.random() * 6,
       color: balloonColor,
       rotation: Math.random() * Math.PI,
@@ -63,7 +66,7 @@ function animateBurst(centerX, centerY) {
     p.x += Math.cos(p.angle) * p.speed;
     p.y += Math.sin(p.angle) * p.speed;
     p.rotation += p.rotationSpeed;
-    p.size *= 0.92; // shrink
+    p.size *= 0.92;
     p.opacity = Math.max(0, 1 - elapsed / 1000); // fade over 1 second
 
     ctx.save();
@@ -84,7 +87,6 @@ function animateBurst(centerX, centerY) {
   if (elapsed < 1000) {
     requestAnimationFrame(() => animateBurst(centerX, centerY));
   } else {
-    // After fade-out, show congratulations
     ctx.globalAlpha = 1;
     ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
@@ -133,7 +135,7 @@ function drawBalloon() {
  
 if (balloonBurst) {
     if (burstParticles.length === 0) {
-      createBurst(centerX, centerY, balloonColor);
+      createBurst(centerX, centerY, balloonColor, balloonSize);
     }
     animateBurst(centerX, centerY);
   
