@@ -62,6 +62,19 @@ function drawBalloon() {
 
   if (balloonBurst) {
     
+     for (let i = 0; i < 20; i++) {
+          const angle = (Math.PI * 2 / 20) * i;
+          const length = 30 + Math.random() * 20;
+          const x = centerX + Math.cos(angle) * length;
+          const y = centerY + Math.sin(angle) * length;
+    
+          ctx.strokeStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.lineTo(x, y);
+          ctx.stroke();
+        }
+
     ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
     ctx.textAlign = 'center';
