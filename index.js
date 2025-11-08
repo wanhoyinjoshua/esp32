@@ -87,6 +87,11 @@ function animateBurst(centerX, centerY) {
   if (elapsed < 1000) {
     requestAnimationFrame(() => animateBurst(centerX, centerY));
   } else {
+    
+    // Reset particles for next burst
+    burstParticles = [];
+    burstStartTime = null;
+
     ctx.globalAlpha = 1;
     ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
