@@ -34,8 +34,7 @@ function leakcompensation(pressure, firstcomp = 2, secondcomp = 4) {
     else{
         return pressure * mmhg2cmh20_const
     }
-    //if (pressure <= 10) return pressure + firstcomp;
-  //return pressure + secondcomp;
+   
 }
 
 function resizeCanvas() {
