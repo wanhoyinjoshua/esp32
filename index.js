@@ -245,7 +245,7 @@ function loop() {
       modified = true;
     }
     //set max cap on each breath 
-    let maxBalloonSize = Math.min(canvas.width, canvas.height)/2;
+    let maxBalloonSize = (Math.min(canvas.width, canvas.height)/2)*0.75;
     currentBreathTargetSize = Math.min(balloonSize + maxBalloonSize / breathTarget, maxBalloonSize);
     if(goodBreaths==0){currentBreathTargetSize = 50 + maxBalloonSize / breathTarget};
 
