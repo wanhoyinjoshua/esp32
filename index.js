@@ -28,7 +28,7 @@ let currentBreathTargetSize = balloonSize;
 
 
 // User settings
-let lower_threshold_expand_pressure = 15;
+let lower_threshold_expand_pressure = 10;
 let upper_threshold_expand_pressure = 20;
 
 
