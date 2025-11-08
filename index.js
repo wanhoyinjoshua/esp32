@@ -98,8 +98,7 @@ function drawBalloon() {
    // return;
   
 
-  const centerX = canvas.width / 2;
-  const centerY = canvas.height / 2;
+
 
   // Balloon gradient
 
