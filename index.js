@@ -60,6 +60,9 @@ function drawBalloon() {
  
  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
   if (balloonBurst) {
     
      for (let i = 0; i < 20; i++) {
