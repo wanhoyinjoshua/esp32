@@ -30,7 +30,9 @@ let lower_threshold_expand_pressure = 15;
 let upper_threshold_expand_pressure = 20;
 
 
+
 let burstParticles = [];
+let burstStartTime = null;
 
 function createBurst(centerX, centerY, balloonColor) {
   burstParticles = [];
@@ -46,22 +48,28 @@ function createBurst(centerX, centerY, balloonColor) {
       color: balloonColor,
       rotation: Math.random() * Math.PI,
       rotationSpeed: (Math.random() - 0.5) * 0.2,
+      opacity: 1
     });
   }
+  burstStartTime = performance.now();
 }
 
 function animateBurst(centerX, centerY) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  const elapsed = performance.now() - burstStartTime;
+
   burstParticles.forEach(p => {
     p.x += Math.cos(p.angle) * p.speed;
     p.y += Math.sin(p.angle) * p.speed;
     p.rotation += p.rotationSpeed;
-    p.size *= 0.92; // shrink over time
+    p.size *= 0.92; // shrink
+    p.opacity = Math.max(0, 1 - elapsed / 1000); // fade over 1 second
 
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rotation);
+    ctx.globalAlpha = p.opacity;
     ctx.fillStyle = p.color;
     ctx.beginPath();
     ctx.moveTo(0, 0);
@@ -73,12 +81,11 @@ function animateBurst(centerX, centerY) {
     ctx.restore();
   });
 
-  burstParticles = burstParticles.filter(p => p.size > 1);
-
-  if (burstParticles.length > 0) {
+  if (elapsed < 1000) {
     requestAnimationFrame(() => animateBurst(centerX, centerY));
   } else {
-    // Show congratulations after animation ends
+    // After fade-out, show congratulations
+    ctx.globalAlpha = 1;
     ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
     ctx.textAlign = 'center';
@@ -86,6 +93,7 @@ function animateBurst(centerX, centerY) {
     document.getElementById('celebrationImage').style.display = 'block';
   }
 }
+
 
 
 function leakcompensation(pressure, firstcomp = 2, secondcomp = 4) {
@@ -128,13 +136,7 @@ if (balloonBurst) {
       createBurst(centerX, centerY, balloonColor);
     }
     animateBurst(centerX, centerY);
-      ctx.fillStyle = 'green';
-    ctx.font = '48px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('CONGRATULATIONS!', canvas.width / 2, canvas.height * 0.2);
-    
-    const img = document.getElementById('celebrationImage');
-    img.style.display = 'block';
+  
     return;
   } else {
     document.getElementById('celebrationImage').style.display = 'none';
