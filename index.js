@@ -21,7 +21,9 @@ let lastTime = performance.now();
 let pressureHistory = [];
 let breathTarget = 6;
 //progress bar logic 
-let mmhg2cmh20_const= 1.36
+let mmhg2cmh20_const= 1.36;
+let currentBreathTargetSize = balloonSize;
+
 
 
 
@@ -242,8 +244,17 @@ function loop() {
       goodBreaths++;
       modified = true;
     }
-    balloonSize += deltaTime * 30;
-    balloonSize = Math.min(balloonSize, Math.min(canvas.width, canvas.height) * 0.75);
+    //set max cap on each breath 
+    let maxBalloonSize = Math.min(canvas.width, canvas.height);
+    currentBreathTargetSize = Math.min(balloonSize + maxBalloonSize / targetBreaths, maxBalloonSize);
+    if (balloonSize < currentBreathTargetSize){
+      balloonSize += deltaTime * 30;
+    }
+    else{
+      balloonSize  =currentBreathTargetSize
+    }
+    
+    //balloonSize = Math.min(balloonSize, Math.min(canvas.width, canvas.height) * 0.75);
   }
 
   if (!balloonBurst && pressure == 0 && !justStarted) {
