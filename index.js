@@ -246,7 +246,7 @@ function loop() {
     }
     //set max cap on each breath 
     let maxBalloonSize = Math.min(canvas.width, canvas.height);
-    currentBreathTargetSize = Math.min(balloonSize + maxBalloonSize / targetBreaths, maxBalloonSize);
+    currentBreathTargetSize = Math.min(balloonSize + maxBalloonSize / breathTarget, maxBalloonSize);
     if (balloonSize < currentBreathTargetSize){
       balloonSize += deltaTime * 30;
     }
