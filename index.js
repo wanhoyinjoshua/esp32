@@ -21,6 +21,7 @@ let lastTime = performance.now();
 let pressureHistory = [];
 let breathTarget = 6;
 //progress bar logic 
+let mmhg2cmh20_const= 1.36
 
 
 
@@ -30,8 +31,11 @@ let upper_threshold_expand_pressure = 20;
 
 function leakcompensation(pressure, firstcomp = 2, secondcomp = 4) {
     if(pressure==0)return 0;
-    if (pressure <= 10) return pressure + firstcomp;
-  return pressure + secondcomp;
+    else{
+        return pressure * mmhg2cmh20_const
+    }
+    //if (pressure <= 10) return pressure + firstcomp;
+  //return pressure + secondcomp;
 }
 
 function resizeCanvas() {
