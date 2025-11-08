@@ -84,6 +84,11 @@ function animateBurst(centerX, centerY) {
     ctx.closePath();
     ctx.fill();
     ctx.restore();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = 'green';
+    ctx.font = '48px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('CONGRATULATIONS!', canvas.width / 2, canvas.height * 0.2);
   });
 
   if (elapsed < 1000) {
