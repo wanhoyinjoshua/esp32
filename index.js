@@ -247,6 +247,18 @@ function loop() {
     //set max cap on each breath 
     let maxBalloonSize = Math.min(canvas.width, canvas.height);
     currentBreathTargetSize = Math.min(balloonSize + maxBalloonSize / breathTarget, maxBalloonSize);
+    if(goodBreaths==1){currentBreathTargetSize = 50 + maxBalloonSize / breathTarget};
+    if(goodBreaths==2){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*2};
+    if(goodBreaths==3){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*3};
+    if(goodBreaths==4){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*4};
+    if(goodBreaths==5){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*5};
+    if(goodBreaths==6){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*6};
+    if(goodBreaths==7){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*7};
+    if(goodBreaths==8){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*8};
+    if(goodBreaths==9){currentBreathTargetSize = 50 + (maxBalloonSize / breathTarget)*9};
+    
+    
+    console.log(currentBreathTargetSize)
     if (balloonSize < currentBreathTargetSize){
       balloonSize += deltaTime * 30;
     }
