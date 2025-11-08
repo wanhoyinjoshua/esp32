@@ -29,6 +29,65 @@ let mmhg2cmh20_const= 1.36
 let lower_threshold_expand_pressure = 15;
 let upper_threshold_expand_pressure = 20;
 
+
+let burstParticles = [];
+
+function createBurst(centerX, centerY, balloonColor) {
+  burstParticles = [];
+  const numParticles = 30;
+
+  for (let i = 0; i < numParticles; i++) {
+    burstParticles.push({
+      x: centerX,
+      y: centerY,
+      size: 8 + Math.random() * 12,
+      angle: Math.random() * Math.PI * 2,
+      speed: 4 + Math.random() * 6,
+      color: balloonColor,
+      rotation: Math.random() * Math.PI,
+      rotationSpeed: (Math.random() - 0.5) * 0.2,
+    });
+  }
+}
+
+function animateBurst(centerX, centerY) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  burstParticles.forEach(p => {
+    p.x += Math.cos(p.angle) * p.speed;
+    p.y += Math.sin(p.angle) * p.speed;
+    p.rotation += p.rotationSpeed;
+    p.size *= 0.92; // shrink over time
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation);
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    for (let i = 0; i < 5; i++) {
+      ctx.lineTo(Math.random() * p.size, Math.random() * p.size);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  });
+
+  burstParticles = burstParticles.filter(p => p.size > 1);
+
+  if (burstParticles.length > 0) {
+    requestAnimationFrame(() => animateBurst(centerX, centerY));
+  } else {
+    // Show congratulations after animation ends
+    ctx.fillStyle = 'green';
+    ctx.font = '48px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('CONGRATULATIONS!', canvas.width / 2, canvas.height * 0.2);
+    document.getElementById('celebrationImage').style.display = 'block';
+  }
+}
+
+
 function leakcompensation(pressure, firstcomp = 2, secondcomp = 4) {
     if(pressure==0)return 0;
     else{
@@ -63,39 +122,28 @@ function drawBalloon() {
     const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
 
-  if (balloonBurst) {
-    
-     for (let i = 0; i < 20; i++) {
-          const angle = (Math.PI * 2 / 20) * i;
-          const length = 30 + Math.random() * 20;
-          const x = centerX + Math.cos(angle) * length;
-          const y = centerY + Math.sin(angle) * length;
-    
-          ctx.strokeStyle = `hsl(${Math.random() * 360}, 100%, 50%)`;
-          ctx.beginPath();
-          ctx.moveTo(centerX, centerY);
-          ctx.lineTo(x, y);
-          ctx.stroke();
-        }
-
-    ctx.fillStyle = 'green';
+ 
+if (balloonBurst) {
+    if (burstParticles.length === 0) {
+      createBurst(centerX, centerY, balloonColor);
+    }
+    animateBurst(centerX, centerY);
+      ctx.fillStyle = 'green';
     ctx.font = '48px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('CONGRATULATIONS!', canvas.width / 2, canvas.height * 0.2);
     
     const img = document.getElementById('celebrationImage');
     img.style.display = 'block';
+    return;
+  } else {
+    document.getElementById('celebrationImage').style.display = 'none';
+  }
+
+
+  
       
-    //img.classList.remove('bounce-in'); // reset animation
-    //void img.offsetWidth; // force reflow
-    //img.classList.add('bounce-in');
-    return
 
-    } else {
-      document.getElementById('celebrationImage').style.display = 'none';
-    }
-
-   // return;
   
 
 
